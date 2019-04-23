@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "de.webtogo.wtgkotlinmvvm"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    implementation "androidx.appcompat:appcompat:$supportVersion"
+    implementation "com.google.android.material:material:$supportVersion"
+    implementation "androidx.recyclerview:recyclerview:${supportVersion}"
+    implementation "androidx.constraintlayout:constraintlayout:${constraintLayoutVersion}"
+
+    implementation "com.squareup.moshi:moshi-kotlin:${moshiKotlinVersion}"
+    implementation "com.google.dagger:dagger-android:${daggerVersion}"
+    implementation "com.google.dagger:dagger-android-support:${daggerVersion}"
+
+    kapt "com.google.dagger:dagger-compiler:${daggerVersion}"
+    kapt "com.google.dagger:dagger-android-processor:${daggerVersion}"
+
+    //Room
+    implementation "androidx.room:room-runtime:${archVersion}"
+    implementation "androidx.room:room-rxjava2:${archVersion}"
+    kapt "androidx.room:room-compiler:${archVersion}"
+    //Lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:${archVersion}"
+    kapt "androidx.lifecycle:lifecycle-compiler:${archVersion}"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-moshi:${moshiConverterVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${rxJavaAdapterVersion}"
+    //RxJava RxAndroid
+    implementation "io.reactivex.rxjava2:rxjava:${rxJava2Version}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
+
+    //////////////////////////////// Test
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-alpha4', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
+    androidTestImplementation "androidx.annotation:annotation:$supportVersion"
+    androidTestImplementation "org.mockito:mockito-core:1.10.19"
+    androidTestImplementation "com.google.dexmaker:dexmaker:1.2"
+    androidTestImplementation "com.google.dexmaker:dexmaker-mockito:1.2"
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+
+    testImplementation "junit:junit:4.12"
+    testImplementation "org.mockito:mockito-core:2.7.+"
+    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
+    testImplementation "com.google.dagger:dagger:$daggerVersion"
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    testImplementation "io.reactivex.rxjava2:rxjava:${rxJava2Version}"
+    testImplementation "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
+
+    testImplementation "androidx.arch.core:core-testing:${archVersion}"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+}
